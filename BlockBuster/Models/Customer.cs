@@ -11,5 +11,6 @@ namespace BlockBuster.Models
         public bool IsSubscribed { get; set; }
         public MembershipType MembershipType { get; set; }
         public byte MembershipTypeID { get; set; }
+        public DateTime? Birthdate { get; set; }
     }
 }
