@@ -1,6 +1,7 @@
 ﻿using BlockBuster.Data;
 using BlockBuster.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlockBuster.Controllers
 {
@@ -19,7 +20,7 @@ namespace BlockBuster.Controllers
         }
         public ViewResult Index()
         {
-            var customers = _context.Customers;
+            var customers = _context.Customers.Include(c => c.MembershipType);
             return View(customers);
         }
 
