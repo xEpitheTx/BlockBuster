@@ -4,6 +4,7 @@ using BlockBuster.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlockBuster.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220121141227_AddIsSubscribedToCustomer")]
+    partial class AddIsSubscribedToCustomer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,38 +35,13 @@ namespace BlockBuster.Data.Migrations
                     b.Property<bool>("IsSubscribed")
                         .HasColumnType("bit");
 
-                    b.Property<byte>("MembershipTypeID")
-                        .HasColumnType("tinyint");
-
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MembershipTypeID");
-
                     b.ToTable("Customers");
-                });
-
-            modelBuilder.Entity("BlockBuster.Models.MembershipType", b =>
-                {
-                    b.Property<byte>("ID")
-                        .HasColumnType("tinyint");
-
-                    b.Property<byte>("DiscountRatePercent")
-                        .HasColumnType("tinyint");
-
-                    b.Property<byte>("DurationInMonths")
-                        .HasColumnType("tinyint");
-
-                    b.Property<short>("SignUpFee")
-                        .HasColumnType("smallint");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("MembershipType");
                 });
 
             modelBuilder.Entity("BlockBuster.Models.Movie", b =>
@@ -284,17 +261,6 @@ namespace BlockBuster.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("BlockBuster.Models.Customer", b =>
-                {
-                    b.HasOne("BlockBuster.Models.MembershipType", "MembershipType")
-                        .WithMany()
-                        .HasForeignKey("MembershipTypeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MembershipType");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
