@@ -14,9 +14,9 @@ namespace BlockBuster.Controllers
 
         public ActionResult Details(int id)
         {
-            Customer customer = GetCustomers().SingleOrDefault(c => c.Id == id) ?? new Customer();
+            Customer customer = GetCustomers().SingleOrDefault(c => c.Id == id);
 
-            if (customer == null)
+            if (customer is null)
             {
                 return StatusCode(404);
             }
