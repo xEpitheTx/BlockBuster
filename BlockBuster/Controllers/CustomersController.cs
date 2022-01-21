@@ -1,5 +1,6 @@
 ﻿using BlockBuster.Data;
 using BlockBuster.Models;
+using BlockBuster.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,7 +12,7 @@ namespace BlockBuster.Controllers
 
         public CustomersController(ApplicationDbContext _context)
         {
-            this._context = _context;    
+            this._context = _context;
         }
 
         protected override void Dispose(bool disposing)
@@ -34,6 +35,16 @@ namespace BlockBuster.Controllers
             }
 
             return View(customer);
+        }
+
+        public ActionResult NewCustomer()
+        {
+            List<MembershipType>? membershipTypes = _context.MembershipType.ToList();
+            NewCustomerViewModel? viewModel = new NewCustomerViewModel
+            {
+                MembershipTypes = membershipTypes
+            };
+            return View(viewModel);
         }
     }
 }
