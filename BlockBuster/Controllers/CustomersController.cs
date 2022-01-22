@@ -10,6 +10,7 @@ namespace BlockBuster.Controllers
     public class CustomersController : Controller
     {
         private ApplicationDbContext _context;
+        private const string formViewName = "CustomerForm";
         //private readonly IMapper _mapper;
 
         public CustomersController(ApplicationDbContext context)
@@ -44,6 +45,25 @@ namespace BlockBuster.Controllers
         [HttpPost]
         public ActionResult Save(Customer customer)
         {
+#if DEBUG
+            var errors = ModelState
+                .Where(x => x.Value.Errors.Count > 0)
+                .Select(x => new { x.Key, x.Value.Errors })
+                .ToArray();
+#endif
+            
+            var diditwork = ModelState.Remove("customer.MembershipType"); //I have no idea why MembershipType is required and this is a shameless hack
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new CustomerFormViewModel()
+                {
+                    Customer = customer,
+                    MembershipTypes = _context.MembershipType.ToList()
+                };
+
+                return View(formViewName, viewModel);
+            }
+
             if (customer.Id == 0)
             {
                 _context.Customers.Add(customer);
@@ -71,7 +91,7 @@ namespace BlockBuster.Controllers
                 MembershipTypes = _context.MembershipType.ToList()
             };
 
-            return View("CustomerForm", viewModel);
+            return View(formViewName, viewModel);
         }
 
         public ActionResult NewCustomer()
@@ -79,10 +99,11 @@ namespace BlockBuster.Controllers
             List<MembershipType>? membershipTypes = _context.MembershipType.ToList();
             CustomerFormViewModel? viewModel = new CustomerFormViewModel
             {
+                Customer = new Customer(),
                 MembershipTypes = membershipTypes
             };
 
-            return View("CustomerForm", viewModel);
+            return View(formViewName, viewModel);
         }
         private void UpdateExistingCustomer(Customer customer)
         {

@@ -11,5 +11,8 @@
         public byte DurationInMonths { get; set; }
 
         public byte DiscountRatePercent { get; set; }
+
+        public static readonly byte Unknown = 0;
+        public static readonly byte PayAsYouGo = 1;
     }
 }

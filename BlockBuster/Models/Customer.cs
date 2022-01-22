@@ -17,6 +17,7 @@ namespace BlockBuster.Models
         [Display(Name = "Membership Type")]
         public byte MembershipTypeID { get; set; }
 
+        [Minimum18YearsIfAMember]
         [Display(Name = "Date of Birth")]
         public DateTime? Birthdate { get; set; }
     }

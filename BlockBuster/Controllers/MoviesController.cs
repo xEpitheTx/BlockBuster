@@ -9,7 +9,7 @@ namespace BlockBuster.Controllers
     public class MoviesController : Controller
     {
         private ApplicationDbContext _context;
-        private const string formName = "MovieForm";
+        private const string formViewName = "MovieForm";
         public MoviesController(ApplicationDbContext _context)
         {
             this._context = _context;
@@ -44,7 +44,7 @@ namespace BlockBuster.Controllers
                 Genres = genres
             };
 
-            return View(formName, viewModel);
+            return View(formViewName, viewModel);
         }
 
         public ActionResult Edit(int id)
@@ -61,7 +61,7 @@ namespace BlockBuster.Controllers
                 Genres = _context.Genres.ToList()
             };
 
-            return View(formName, viewModel);
+            return View(formViewName, viewModel);
         }
 
         [HttpPost]
