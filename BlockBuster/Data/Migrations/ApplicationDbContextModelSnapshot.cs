@@ -102,10 +102,7 @@ namespace BlockBuster.Data.Migrations
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("datetime2");
 
-                    b.Property<byte>("GenreID")
-                        .HasColumnType("tinyint");
-
-                    b.Property<int>("GenreId")
+                    b.Property<int>("GenreID")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -120,7 +117,7 @@ namespace BlockBuster.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GenreId");
+                    b.HasIndex("GenreID");
 
                     b.ToTable("Movies");
                 });
@@ -342,7 +339,7 @@ namespace BlockBuster.Data.Migrations
                 {
                     b.HasOne("BlockBuster.Models.Genre", "Genre")
                         .WithMany()
-                        .HasForeignKey("GenreId")
+                        .HasForeignKey("GenreID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

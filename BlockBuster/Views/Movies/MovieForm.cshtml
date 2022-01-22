@@ -1,0 +1,39 @@
+﻿@model BlockBuster.ViewModels.MovieFormViewModel
+
+@{
+    ViewBag.Title = "MovieForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.Movie == null)
+{
+    <h2>New Movie</h2>
+}
+else
+{
+    <h2>Edit Movie</h2>
+}
+
+@using (Html.BeginForm("Save", "Movies"))
+{
+    <div class="form-group">
+        <div class="col-cs-2">
+            @Html.LabelFor(c => c.Movie.Name)
+            @Html.TextBoxFor(c => c.Movie.Name, new { @class="form-control", @id="ex1"})
+        </div>
+        <div class="col-cs-2">
+            @Html.LabelFor(c => c.Movie.ReleaseDate)
+            @Html.TextBoxFor(c => c.Movie.ReleaseDate, "{0:d MMM yyy}", new { @class="form-control", @id="ex1" })
+        </div>
+        <div class="col-cs-2">
+            @Html.LabelFor(c => c.Movie.GenreID)
+            @Html.DropDownListFor(c => c.Movie.GenreID, new SelectList(Model.Genres, "Id", "Type"), "Select Genre", new { @class="form-control", @id="ex1" })
+        </div>
+        <div class="col-cs-2">
+            @Html.LabelFor(c => c.Movie.Stock)
+            @Html.TextBoxFor(c => c.Movie.Stock, new { @class="form-control", @id="ex1"})
+        </div>
+    </div>
+    @Html.HiddenFor(c => c.Movie.Id)
+    <button type="submit" class="btn btn-primary">Save</button>
+}

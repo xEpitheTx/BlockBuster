@@ -14,10 +14,13 @@
         </tr>
     </thead>
     <tbody>
+        <p>
+            @Html.ActionLink("New Movie", "NewMovie", "Movies", null, new { @class = "btn btn-primary" })
+        </p>
         @foreach (var movie in Model)
         {
             <tr>
-                <td>@Html.ActionLink(movie.Name, "Details", "Movies", new { id = movie.Id }, null)</td>
+                <td>@Html.ActionLink(movie.Name, "Edit", "Movies", new { id = movie.Id }, null)</td>
                 <td>@movie.Genre.Type</td>
             </tr>
         }
