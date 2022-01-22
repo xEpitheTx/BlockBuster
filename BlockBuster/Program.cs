@@ -1,4 +1,7 @@
+using AutoMapper;
 using BlockBuster.Data;
+using BlockBuster.Models;
+using BlockBuster.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +18,16 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+//var configuration = new MapperConfiguration(cfg =>
+//{
+//    cfg.CreateMap<CustomerFormViewModel, Customer>();
+//    //cfg.CreateMap<Bar, BarDto>();
+//});
+//// only during development, validate your mappings; remove it before release
+//configuration.AssertConfigurationIsValid();
+//// use DI (http://docs.automapper.org/en/latest/Dependency-injection.html) or create the mapper yourself
+//IMapper? mapper = configuration.CreateMapper();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
