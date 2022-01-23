@@ -43,6 +43,7 @@ namespace BlockBuster.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {
 #if DEBUG
@@ -51,11 +52,11 @@ namespace BlockBuster.Controllers
                 .Select(x => new { x.Key, x.Value.Errors })
                 .ToArray();
 #endif
-            
-            var diditwork = ModelState.Remove("customer.MembershipType"); //I have no idea why MembershipType is required and this is a shameless hack
+
+            bool diditwork = ModelState.Remove("customer.MembershipType"); //I have no idea why MembershipType is required and this is a shameless hack
             if (!ModelState.IsValid)
             {
-                var viewModel = new CustomerFormViewModel()
+                CustomerFormViewModel? viewModel = new CustomerFormViewModel()
                 {
                     Customer = customer,
                     MembershipTypes = _context.MembershipType.ToList()

@@ -41,6 +41,7 @@ namespace BlockBuster.Controllers
             List<Genre>? genres = _context.Genres.ToList();
             MovieFormViewModel? viewModel = new MovieFormViewModel
             {
+                Movie = new Movie(),
                 Genres = genres
             };
 
@@ -65,8 +66,27 @@ namespace BlockBuster.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Movie movie)
         {
+#if DEBUG
+            var errors = ModelState
+                .Where(x => x.Value.Errors.Count > 0)
+                .Select(x => new { x.Key, x.Value.Errors })
+                .ToArray();
+#endif
+
+            bool diditwork = ModelState.Remove("movie.Genre"); //I have no idea why MembershipType is required and this is a shameless hack
+            if (!ModelState.IsValid)
+            {
+                MovieFormViewModel? viewModel = new MovieFormViewModel()
+                {
+                    Movie = movie,
+                    Genres = _context.Genres.ToList()
+                };
+
+                return View(formViewName, viewModel);
+            }
             if (movie.Id == 0)
             {
                 _context.Movies.Add(movie);

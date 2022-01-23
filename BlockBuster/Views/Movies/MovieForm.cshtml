@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (Model.Movie == null)
+@if (Model.Movie.Id == 0)
 {
     <h2>New Movie</h2>
 }
@@ -18,22 +18,28 @@ else
 {
     <div class="form-group">
         <div class="col-cs-2">
-            @Html.LabelFor(c => c.Movie.Name)
-            @Html.TextBoxFor(c => c.Movie.Name, new { @class="form-control", @id="ex1"})
+            @Html.LabelFor(m => m.Movie.Name)
+            @Html.TextBoxFor(m => m.Movie.Name, new { @class="form-control", @id="ex1"})
+            @Html.ValidationMessageFor(m => m.Movie.Name)
+
         </div>
         <div class="col-cs-2">
-            @Html.LabelFor(c => c.Movie.ReleaseDate)
-            @Html.TextBoxFor(c => c.Movie.ReleaseDate, "{0:d MMM yyy}", new { @class="form-control", @id="ex1" })
+            @Html.LabelFor(m => m.Movie.ReleaseDate)
+            @Html.TextBoxFor(m => m.Movie.ReleaseDate, "{0:d MMM yyy}", new { @class="form-control", @id="ex1" })
+            @Html.ValidationMessageFor(m => m.Movie.ReleaseDate)
         </div>
         <div class="col-cs-2">
-            @Html.LabelFor(c => c.Movie.GenreID)
-            @Html.DropDownListFor(c => c.Movie.GenreID, new SelectList(Model.Genres, "Id", "Type"), "Select Genre", new { @class="form-control", @id="ex1" })
+            @Html.LabelFor(m => m.Movie.GenreID)
+            @Html.DropDownListFor(m => m.Movie.GenreID, new SelectList(Model.Genres, "Id", "Type"), "Select Genre", new { @class="form-control", @id="ex1" })
+            @Html.ValidationMessageFor(m => m.Movie.GenreID)
         </div>
         <div class="col-cs-2">
-            @Html.LabelFor(c => c.Movie.Stock)
-            @Html.TextBoxFor(c => c.Movie.Stock, new { @class="form-control", @id="ex1"})
+            @Html.LabelFor(m => m.Movie.Stock)
+            @Html.TextBoxFor(m => m.Movie.Stock, new { @class="form-control", @id="ex1"})
+            @Html.ValidationMessageFor(m => m.Movie.Stock)
         </div>
     </div>
-    @Html.HiddenFor(c => c.Movie.Id)
+    @Html.HiddenFor(m => m.Movie.Id)
+    @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Save</button>
 }

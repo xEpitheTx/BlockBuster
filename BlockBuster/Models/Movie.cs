@@ -23,7 +23,7 @@ namespace BlockBuster.Models
         [Display(Name = "Date Added")]
         public DateTime DateAdded { get; set; }
 
-        [Required]
+        [Range(1, 20)]
         [Display(Name = "Number in Stock")]
         public int Stock { get; set; }
     }
