@@ -41,7 +41,6 @@ namespace BlockBuster.Controllers
             List<Genre>? genres = _context.Genres.ToList();
             MovieFormViewModel? viewModel = new MovieFormViewModel
             {
-                Movie = new Movie(),
                 Genres = genres
             };
 
@@ -56,9 +55,8 @@ namespace BlockBuster.Controllers
                 return StatusCode(404);
             }
 
-            MovieFormViewModel? viewModel = new MovieFormViewModel
+            MovieFormViewModel? viewModel = new MovieFormViewModel(movie)
             {
-                Movie = movie,
                 Genres = _context.Genres.ToList()
             };
 
@@ -79,9 +77,8 @@ namespace BlockBuster.Controllers
             bool diditwork = ModelState.Remove("movie.Genre"); //I have no idea why MembershipType is required and this is a shameless hack
             if (!ModelState.IsValid)
             {
-                MovieFormViewModel? viewModel = new MovieFormViewModel()
+                MovieFormViewModel? viewModel = new MovieFormViewModel(movie)
                 {
-                    Movie = movie,
                     Genres = _context.Genres.ToList()
                 };
 
