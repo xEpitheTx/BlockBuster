@@ -12,7 +12,7 @@ namespace BlockBuster.Models
 
         public bool IsSubscribed { get; set; }
 
-        public MembershipType MembershipType { get; set; }
+        public MembershipType? MembershipType { get; set; }
 
         [Display(Name = "Membership Type")]
         public byte MembershipTypeID { get; set; }
