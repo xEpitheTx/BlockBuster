@@ -3,41 +3,41 @@
 @model BlockBuster.ViewModels.CustomerFormViewModel
 
 @{
-    ViewBag.Title = "CustomerForm";
+    ViewBag.Title = Model.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*<script src="~/lib/jquery-validation/dist/jquery.validate.js" type="text/javascript"></script>*@
+<h2>@Model.Title</h2>
 
-<h2>New Customer</h2>
+@*<script src="~/lib/jquery-validation/dist/jquery.validate.js" type="text/javascript"></script>*@
 
 @using (Html.BeginForm("Save", "Customers"))
 {
     <div class="form-group">
         <div class="col-cs-2">
-            @Html.LabelFor(c => c.Customer.Name)
-            @Html.TextBoxFor(c => c.Customer.Name, new { @class="form-control", @id="ex1"})
-            @Html.ValidationMessageFor(c => c.Customer.Name)
+            @Html.LabelFor(c => c.Name)
+            @Html.TextBoxFor(c => c.Name, new { @class="form-control", @id="ex1"})
+            @Html.ValidationMessageFor(c => c.Name)
         </div>
         <div class="col-cs-2">
-            @Html.LabelFor(c => c.Customer.Birthdate)
-            @Html.TextBoxFor(c => c.Customer.Birthdate, "{0:d MMM yyy}", new { @class="form-control", @id="ex1" })
-            @Html.ValidationMessageFor(c => c.Customer.Birthdate)
+            @Html.LabelFor(c => c.Birthdate)
+            @Html.TextBoxFor(c => c.Birthdate, "{0:d MMM yyy}", new { @class="form-control", @id="ex1" })
+            @Html.ValidationMessageFor(c => c.Birthdate)
         </div>
         <div class="col-cs-2">
-            @Html.LabelFor(c => c.Customer.MembershipTypeID)
-            @Html.DropDownListFor(c => c.Customer.MembershipTypeID, new SelectList(Model.MembershipTypes, "ID", "Name"), "Select Membership Type", new { @class="form-control", @id="ex1" })
-@*            @Html.ValidationMessageFor(c => c.Customer.MembershipTypeID)*@
+            @Html.LabelFor(c => c.MembershipTypeID)
+            @Html.DropDownListFor(c => c.MembershipTypeID, new SelectList(Model.MembershipTypes, "ID", "Name"), "Select Membership Type", new { @class="form-control", @id="ex1" })
+@*            @Html.ValidationMessageFor(c => c.MembershipTypeID)*@
         </div>
     </div>
     <div class="checkbox">
         <label>
-            Subscribe to Newsletter? @Html.CheckBoxFor(c => c.Customer.IsSubscribed)
-            @Html.ValidationMessageFor(c => c.Customer.IsSubscribed)
+            Subscribe to Newsletter? @Html.CheckBoxFor(c => c.IsSubscribed)
+            @Html.ValidationMessageFor(c => c.IsSubscribed)
 
         </label>
     </div>
-    @Html.HiddenFor(c => c.Customer.Id)
+    @Html.HiddenFor(c => c.Id)
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Save</button>
 }

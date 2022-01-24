@@ -58,7 +58,6 @@ namespace BlockBuster.Controllers
             {
                 CustomerFormViewModel? viewModel = new CustomerFormViewModel()
                 {
-                    Customer = customer,
                     MembershipTypes = _context.MembershipType.ToList()
                 };
 
@@ -86,9 +85,8 @@ namespace BlockBuster.Controllers
                 return StatusCode(404);
             }
 
-            CustomerFormViewModel? viewModel = new CustomerFormViewModel
+            CustomerFormViewModel? viewModel = new CustomerFormViewModel(customer)
             {
-                Customer = customer,
                 MembershipTypes = _context.MembershipType.ToList()
             };
 
@@ -100,7 +98,6 @@ namespace BlockBuster.Controllers
             List<MembershipType>? membershipTypes = _context.MembershipType.ToList();
             CustomerFormViewModel? viewModel = new CustomerFormViewModel
             {
-                Customer = new Customer(),
                 MembershipTypes = membershipTypes
             };
 

@@ -5,7 +5,7 @@ namespace BlockBuster.ViewModels
 {
     public class MovieFormViewModel
     {
-        public IEnumerable<Genre> Genres { get; set; }
+        public IEnumerable<Genre>? Genres { get; set; }
 
         public int? Id { get; set; }
 

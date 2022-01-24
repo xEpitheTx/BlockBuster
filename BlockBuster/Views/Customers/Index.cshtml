@@ -9,9 +9,15 @@
 @if (!Model.Any())
 {
     <p>We don't have any customers yet.</p>
+    <p>
+        @Html.ActionLink("New Customer", "NewCustomer", "Customers", null, new { @class = "btn btn-primary" })
+    </p>
 }
 else
 {
+    <p>
+        @Html.ActionLink("New Customer", "NewCustomer", "Customers", null, new { @class = "btn btn-primary" })
+    </p>
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
