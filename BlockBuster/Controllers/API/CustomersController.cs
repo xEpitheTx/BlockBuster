@@ -1,6 +1,5 @@
 ﻿using BlockBuster.Data;
 using BlockBuster.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Web.Http;
 
@@ -22,6 +21,7 @@ namespace BlockBuster.Controllers.API
             return _context.Customers.ToList();
         }
 
+        [Microsoft.AspNetCore.Mvc.HttpGet("GetCustomer/{id}")]
         public Customer GetCustomer(int id)
         {
             Customer customer = _context.Customers.SingleOrDefault(c => c.Id == id);

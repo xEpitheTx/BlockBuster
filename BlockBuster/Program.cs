@@ -1,11 +1,6 @@
-using AutoMapper;
 using BlockBuster.Data;
-using BlockBuster.Models;
-using BlockBuster.ViewModels;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Web.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,8 +13,6 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
-
-builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
 
 var app = builder.Build();
 
@@ -58,15 +51,11 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
-app.UseMvc(routes =>
+app.UseEndpoints(endpoints =>
 {
-    routes.MapRoute(
-        name: "areaRoute",
-        template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
-    routes.MapRoute(
+    endpoints.MapControllerRoute(
         name: "default",
-        template: "{controller=Home}/{action=Index}/{id?}");
+        pattern: "{controller=Home}/{action=Index}/{id?}");
 });
 
 app.Run();
